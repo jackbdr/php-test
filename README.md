@@ -1,3 +1,15 @@
+## Tech test submission
+
+Hi there,
+
+Thanks for sending over the tech test - here is my submission!
+
+I would have liked to spend more time on the unit / feature tests, but I hope they provide decent coverage for the API. 
+
+Thanks again, I hope you have a good rest of your week!
+
+## Task
+
 Thank you for taking the time to complete this task. We appreciate your effort and look forward to reviewing your submission.
 
 We would like you to create a basic Laravel API called **“Laravel Tech Task Demo API”**. The purpose of the API is to display, add, edit and delete tasks.
