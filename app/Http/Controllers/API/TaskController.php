@@ -45,7 +45,7 @@ class TaskController extends Controller
 
         $editUrl = URL::temporarySignedRoute(
             'tasks.edit.signed',
-            now()->addMinutes(60), // expire in 60 minutes
+            now()->addMinutes(60),
             ['task' => $task->id]
         );
 
@@ -79,12 +79,9 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function signedUpdate(Request $request, Task $task): JsonResponse
+    public function signedUpdate(TaskRequest $request, Task $task): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => 'sometimes|string|min:3|max:100',
-            'description' => 'sometimes|string|min:10|max:5000',
-        ]);
+        $validated = $request->validated();
 
         $task->update($validated);
 
