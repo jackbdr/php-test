@@ -127,6 +127,11 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'apirequests' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/api_requests.log'),
+            'level' => 'info',
+        ],
     ],
 
 ];
