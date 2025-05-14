@@ -4,6 +4,8 @@ Hi there,
 
 Thanks for sending over the tech test - here is my submission!
 
+To quickly test soft deletion, you can pass a with_deleted boolean parameter to the index endpoint to include deleted tasks in the results.
+
 I would have liked to spend more time on the unit / feature tests, but I hope they provide decent coverage for the API. 
 
 Thanks again, I hope you have a good rest of your week!
