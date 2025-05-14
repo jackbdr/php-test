@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ListTaskRequest;
 use App\Http\Requests\TaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
@@ -15,19 +16,11 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): JsonResponse
+    public function index(ListTaskRequest $request): JsonResponse
     {
-        $request->validate([
-            'with_deleted' => 'nullable|boolean',
-        ]);
+        $request->validated();
 
-        $tasksQuery = Task::query();
-
-        if ($request->boolean('with_deleted')) {
-            $tasksQuery->withTrashed();
-        }
-
-        $tasks = $tasksQuery->get();
+        $tasks = Task::withDeletedTasks($request->boolean('with_deleted'))->get();
 
         return response()->json([
             'success' => true,
