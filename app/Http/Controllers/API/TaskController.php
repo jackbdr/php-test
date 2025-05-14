@@ -8,6 +8,7 @@ use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class TaskController extends Controller
 {
@@ -32,9 +33,23 @@ class TaskController extends Controller
     {
         $task = Task::create($request->validated());
 
+        $editUrl = URL::temporarySignedRoute(
+            'tasks.edit.signed',
+            now()->addMinutes(60), // expire in 60 minutes
+            ['task' => $task->id]
+        );
+
+        $deleteUrl = URL::temporarySignedRoute(
+            'tasks.delete.signed',
+            now()->addMinutes(60),
+            ['task' => $task->id]
+        );
+
         return response()->json([
             'success' => true,
             'data' => new TaskResource($task),
+            'edit_url' => $editUrl,
+            'delete_url' => $deleteUrl,
             'message' => 'Task created successfully.'
         ], 201);
     }
@@ -54,16 +69,32 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function signedUpdate(Request $request, Task $task): JsonResponse
     {
-        //
+        $validated = $request->validate([
+            'name' => 'sometimes|string|min:3|max:100',
+            'description' => 'sometimes|string|min:10|max:5000',
+        ]);
+
+        $task->update($validated);
+
+        return response()->json([
+            'success' => true,
+            'data' => new TaskResource($task),
+            'message' => 'Task updated successfully.',
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function signedDestroy(Task $task): JsonResponse
     {
-        //
+        $task->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Task deleted successfully.',
+        ]);
     }
 }
