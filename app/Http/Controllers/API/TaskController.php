@@ -15,9 +15,19 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $tasks = Task::all();
+        $request->validate([
+            'with_deleted' => 'nullable|boolean',
+        ]);
+
+        $tasksQuery = Task::query();
+
+        if ($request->boolean('with_deleted')) {
+            $tasksQuery->withTrashed();
+        }
+
+        $tasks = $tasksQuery->get();
 
         return response()->json([
             'success' => true,
