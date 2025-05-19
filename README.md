@@ -6,7 +6,7 @@ Thanks for sending over the tech test - here is my submission!
 
 To quickly test soft deletion, you can pass a `with_deleted` boolean parameter to the index endpoint to include deleted tasks in the results.
 
-I would have liked to spend more time on the unit / feature tests. The criteria asks for appropriate unit tests, however I thought the most important tests (covering the Api) should fall under "Feature". I realise I may have ended up with a slightly strange split between Unit and Feature, but I hope it shows a good start for test coverage. Also, I considered implementing a TaskRepository, however I decided - in this instance - it would be over engineering to separate the domain and data mapping layers.
+I would have liked to spend more time on the unit / feature tests. The criteria asks for appropriate unit tests, however I thought the most important tests (covering the Api) should fall under "Feature". I realise I may have ended up with a slightly strange split between Unit and Feature, but I hope it shows a good start for test coverage. Also, I considered implementing a TaskRepository, however I decided - in this instance - it would be over engineering to separate the domain and data mapping layer.
 
 Thanks again, I hope you have a good rest of your week!
 
